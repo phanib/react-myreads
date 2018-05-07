@@ -17,12 +17,26 @@ class BookSearch extends Component {
       .then(res => {
         if(res.hasOwnProperty('error')){
           this.setState({searchResults: []})
-        } else {
-          this.setState({searchResults: res})
+        }
+        else {
+          this.markBookStatus(res)
         }
       })
     }
+  }
 
+  markBookStatus(books) {
+    const localBooks = this.props.books
+    const markedBooks = books.map(book => {
+      localBooks.map(lb => {
+        if(lb.id === book.id) {
+          book['shelf'] = lb.shelf
+        }
+      })
+      return book
+    })
+    debugger
+    this.setState({searchResults: markedBooks})
   }
 
   render() {

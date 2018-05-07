@@ -23,7 +23,8 @@ class BooksApp extends React.Component {
     }
   }
 
-
+  flattenBooksData = () => [...this.state.books.currentlyReading, ...this.state.books.read, ...this.state.books.wantToRead]
+  
 
   fetchAndSortBooks() {
     BooksApi.getAll()
@@ -50,7 +51,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (<BookSearch />) : (
+        {this.state.showSearchPage ? (<BookSearch books={this.flattenBooksData()}/>) : (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
