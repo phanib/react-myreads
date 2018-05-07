@@ -23,11 +23,15 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksApi.getAll()
-      .then(books => this.setState({books: books}))
+      .then(books => this.sortBooks(books))
   }
 
   sortBooks = (books) => {
-    
+    let books_data = {}
+    books_data['currentlyReading'] = books.filter(book => book.shelf === 'currentlyReading')
+    books_data['read'] = books.filter(book => book.shelf === 'read')
+    books_data['wantToRead'] = books.filter(book => book.shelf === 'wantToRead')
+    this.setState({books: books_data})
   }
 
   render() {
@@ -61,9 +65,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf books={this.state.currentlyReading} title="Currently Reading" />
-                <BookShelf books={this.state.wantToRead} title="Want To Read" />
-                <BookShelf books={this.state.read} title="Read" />
+                <BookShelf books={this.state.books.currentlyReading} title="Currently Reading" />
+                <BookShelf books={this.state.books.wantToRead} title="Want To Read" />
+                <BookShelf books={this.state.books.read} title="Read" />
               </div>
             </div>
             <div className="open-search">
