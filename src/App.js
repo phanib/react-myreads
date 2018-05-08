@@ -1,7 +1,6 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Book from './Book';
 import BookShelf from './BookShelf';
 import * as BooksApi from './BooksAPI'
 import BookSearch from './BookSearch';
@@ -54,7 +53,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route exact path='/search' render={() => <BookSearch handleUpdate={this.handleChange} books={this.flattenBooksData()}/>} />
+        <Route exact path='/search' render={({history}) => <BookSearch handleUpdate={this.handleChange} books={this.flattenBooksData()}/>} />
         <Route exact path='/' render={() => (
           <div className="list-books">
           <div className="list-books-title">
