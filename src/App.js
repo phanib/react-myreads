@@ -9,13 +9,6 @@ import Route from 'react-router-dom/Route';
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    searchResults: [],
     books: {
       currentlyReading:[],
       read:[],
@@ -25,7 +18,6 @@ class BooksApp extends React.Component {
 
   flattenBooksData = () => [...this.state.books.currentlyReading, ...this.state.books.read, ...this.state.books.wantToRead]
   
-
   fetchAndSortBooks() {
     BooksApi.getAll()
     .then(books => this.sortBooks(books))
@@ -47,8 +39,6 @@ class BooksApp extends React.Component {
     BooksApi.update(book, e.target.value)
       .then(resp => this.fetchAndSortBooks())
   }
-
-  
 
   render() {
     return (
