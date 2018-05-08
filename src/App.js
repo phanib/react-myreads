@@ -5,6 +5,8 @@ import Book from './Book';
 import BookShelf from './BookShelf';
 import * as BooksApi from './BooksAPI'
 import BookSearch from './BookSearch';
+import { Link } from 'react-router-dom';
+import Route from 'react-router-dom/Route';
 
 class BooksApp extends React.Component {
   state = {
@@ -14,7 +16,6 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false,
     searchResults: [],
     books: {
       currentlyReading:[],
@@ -48,26 +49,29 @@ class BooksApp extends React.Component {
       .then(resp => this.fetchAndSortBooks())
   }
 
+  
+
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (<BookSearch handleUpdate={this.handleChange} books={this.flattenBooksData()}/>) : (
+        <Route exact path='/search' render={() => <BookSearch handleUpdate={this.handleChange} books={this.flattenBooksData()}/>} />
+        <Route exact path='/' render={() => (
           <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <BookShelf handleChange={this.handleChange} books={this.state.books.currentlyReading} title="Currently Reading" />
-                <BookShelf handleChange={this.handleChange} books={this.state.books.wantToRead} title="Want To Read" />
-                <BookShelf handleChange={this.handleChange} books={this.state.books.read} title="Read" />
-              </div>
-            </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+          <div className="list-books-title">
+            <h1>MyReads</h1>
+          </div>
+          <div className="list-books-content">
+            <div>
+              <BookShelf handleChange={this.handleChange} books={this.state.books.currentlyReading} title="Currently Reading" />
+              <BookShelf handleChange={this.handleChange} books={this.state.books.wantToRead} title="Want To Read" />
+              <BookShelf handleChange={this.handleChange} books={this.state.books.read} title="Read" />
             </div>
           </div>
-        )}
+          <div className="open-search">
+            <Link to='/search'> Add a book </Link>
+          </div>
+        </div>
+        )} />
       </div>
     )
   }
