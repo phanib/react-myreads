@@ -51,7 +51,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (<BookSearch books={this.flattenBooksData()}/>) : (
+        {this.state.showSearchPage ? (<BookSearch handleUpdate={this.handleChange} books={this.flattenBooksData()}/>) : (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>

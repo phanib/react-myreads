@@ -32,10 +32,12 @@ class BookSearch extends Component {
         if(lb.id === book.id) {
           book['shelf'] = lb.shelf
         }
+        else {
+          book['shelf'] = 'none'
+        }
       })
       return book
     })
-    debugger
     this.setState({searchResults: markedBooks})
   }
 
@@ -59,7 +61,7 @@ class BookSearch extends Component {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {this.state.searchResults.map(book => <Book book={book} />)}
+          {this.state.searchResults.map(book => <Book handleChange={this.props.handleUpdate} book={book} />)}
         </ol>
       </div>
     </div>
