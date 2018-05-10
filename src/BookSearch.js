@@ -23,22 +23,18 @@ class BookSearch extends Component {
         }
       })
     }
+    
   }
 
   markBookStatus(books) {
     const localBooks = this.props.books
-    const markedBooks = books.map(book => {
-      localBooks.map(lb => {
-        if(lb.id === book.id) {
-          book['shelf'] = lb.shelf
-        }
-        else {
-          book['shelf'] = 'none'
-        }
-      })
-      return book
-    })
-    this.setState({searchResults: markedBooks})
+    books.forEach(((book, index) => {
+      let foundBook = localBooks.find(b => b.id === book.id)
+      book.shelf = foundBook ? foundBook.shelf : 'none'
+      books[index] = book
+    }))
+
+    this.setState({searchResults: books})
   }
 
   render() {
@@ -52,7 +48,7 @@ class BookSearch extends Component {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {this.state.searchResults.map(book => <Book handleChange={this.props.handleUpdate} book={book} />)}
+          {this.state.searchResults.map(book => <li key={book.id}> <Book handleChange={this.props.handleUpdate} book={book} /> </li>)}
         </ol>
       </div>
     </div>
