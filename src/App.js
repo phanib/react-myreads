@@ -6,6 +6,8 @@ import * as BooksApi from './BooksAPI'
 import BookSearch from './BookSearch';
 import { Link } from 'react-router-dom';
 import Route from 'react-router-dom/Route';
+import pageNotFound from './pageNotFound';
+import Switch from 'react-router-dom/Switch';
 
 class BooksApp extends React.Component {
   state = {
@@ -43,6 +45,8 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
+      <Switch>
+        
         <Route exact path='/search' render={({history}) => <BookSearch handleUpdate={this.handleChange} books={this.flattenBooksData()}/>} />
         <Route exact path='/' render={() => (
           <div className="list-books">
@@ -61,6 +65,8 @@ class BooksApp extends React.Component {
           </div>
         </div>
         )} />
+        <Route component={pageNotFound} />
+        </Switch>
       </div>
     )
   }

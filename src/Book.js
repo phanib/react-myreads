@@ -20,7 +20,7 @@ function Book({book, handleChange}) {
         </div>
       </div>
       <div className="book-title">{title}</div>
-      <div className="book-authors">{authors && authors.map(a => `${a} `)}</div>
+      <div className="book-authors">{Array.isArray(authors)?authors.join(', '):''}</div>
     </div>
   )
 }
